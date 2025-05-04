@@ -3,83 +3,521 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Backstab</title>
-    <link rel="stylesheet" href="main.css">
+    <title>Backstab | Trust No One</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+    /* Base Styles */
+    body {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #0a0a0a;
+        color: #e0e0e0;
+        line-height: 1.6;
+    }
+
+    /* Header & Navigation */
+    .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 15px 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .header nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .header nav ul li {
+        margin: 0 25px;
+    }
+
+    .header nav ul li a {
+        color: #e0e0e0;
+        text-decoration: none;
+        font-size: 0.9rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: 8px 0;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    .header nav ul li a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: 0;
+        left: 0;
+        background-color: #d32f2f;
+        transition: width 0.3s ease;
+    }
+
+    .header nav ul li a:hover {
+        color: #ffffff;
+    }
+
+    .header nav ul li a:hover::after {
+        width: 100%;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        padding: 180px 0 100px;
+        text-align: center;
+        background-color: #121212;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(10, 10, 10, 0.9));
+        z-index: 1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .main-title {
+        font-size: 4rem;
+        font-weight: 800;
+        margin-bottom: 30px;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .main-title::after {
+        content: '';
+        position: absolute;
+        width: 80px;
+        height: 3px;
+        background-color: #d32f2f;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .centered-image {
+        max-width: 380px;
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        margin: 30px auto;
+        transition: transform 0.4s ease;
+    }
+
+    .centered-image:hover {
+        transform: scale(1.05);
+    }
+
+    .tagline {
+        font-size: 1.2rem;
+        font-weight: 300;
+        margin: 40px auto;
+        max-width: 700px;
+        color: #bdbdbd;
+        font-style: italic;
+        position: relative;
+        padding: 0 30px;
+    }
+
+    .tagline::before, .tagline::after {
+        content: '"';
+        font-size: 2rem;
+        color: #d32f2f;
+        position: absolute;
+        opacity: 0.7;
+    }
+
+    .tagline::before {
+        top: -15px;
+        left: 0;
+    }
+
+    .tagline::after {
+        bottom: -25px;
+        right: 0;
+    }
+
+    /* Social Links */
+    .social-links {
+        margin: 40px 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .social-link {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        color: #e0e0e0;
+        padding: 10px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .social-link img {
+        height: 24px;
+        width: auto;
+        margin-right: 10px;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+    }
+
+    .social-link:hover {
+        background-color: rgba(211, 47, 47, 0.1);
+        border-color: rgba(211, 47, 47, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .social-link:hover img {
+        opacity: 1;
+    }
+
+    .mini-title {
+        font-size: 1rem;
+        font-weight: 400;
+        color: #9e9e9e;
+        margin: 15px 0;
+        letter-spacing: 1px;
+    }
+
+    .contract-address {
+        font-family: 'Courier New', monospace;
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 15px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: #d32f2f;
+        border: 1px solid rgba(211, 47, 47, 0.3);
+    }
+
+    /* Memes Section */
+    .memes-section {
+        padding: 80px 20px;
+        text-align: center;
+        background-color: #0a0a0a;
+    }
+
+    .section-heading {
+        font-size: 2rem;
+        margin-bottom: 40px;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 15px;
+    }
+
+    .section-heading::after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 2px;
+        background-color: #d32f2f;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .featured-meme {
+        max-width: 500px;
+        height: auto;
+        margin: 0 auto 40px;
+        border-radius: 6px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        transition: transform 0.4s ease;
+    }
+
+    .featured-meme:hover {
+        transform: scale(1.02);
+    }
+
+    .meme-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .meme-grid img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        opacity: 0.9;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .meme-grid img:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        opacity: 1;
+    }
+
+    /* Tokenomics Section */
+    .tokenomics-section {
+        padding: 80px 20px;
+        text-align: center;
+        background-color: #121212;
+    }
+
+    .tokenomics-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .tokenomics-card {
+        background-color: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 6px;
+        padding: 30px;
+        width: 280px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .tokenomics-card:hover {
+        transform: translateY(-8px);
+        background-color: rgba(211, 47, 47, 0.05);
+        border-color: rgba(211, 47, 47, 0.2);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .tokenomics-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #ffffff;
+        letter-spacing: 1px;
+    }
+
+    .tokenomics-value {
+        font-size: 1.8rem;
+        color: #d32f2f;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .tokenomics-description {
+        margin-top: 15px;
+        color: #9e9e9e;
+        font-size: 0.9rem;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 40px 20px;
+        background-color: #050505;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-links {
+        margin-bottom: 20px;
+    }
+
+    .footer-link {
+        color: #9e9e9e;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+        color: #d32f2f;
+    }
+
+    .copyright {
+        color: #616161;
+        font-size: 0.8rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .main-title {
+            font-size: 3rem;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+        }
+        
+        .meme-grid {
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        }
+        
+        .tokenomics-container {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .tokenomics-card {
+            width: 100%;
+            max-width: 320px;
+        }
+        
+        .header nav ul li {
+            margin: 0 15px;
+        }
+        
+        .header nav ul li a {
+            font-size: 0.8rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .main-title {
+            font-size: 2.5rem;
+        }
+        
+        .featured-meme {
+            max-width: 100%;
+        }
+        
+        .social-link {
+            padding: 8px 12px;
+            font-size: 0.9rem;
+        }
+        
+        .header nav ul li {
+            margin: 0 10px;
+        }
+    }
+    </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-<!-- Navigation Bar -->
-    <header class="navbar badass-header">
+    <!-- Header/Navigation -->
+    <header class="header">
         <nav>
             <ul>
-                <li><a href="#images-section">MEMES</a></li>
-                <li><a href="#astronomics">Backstabbing</a></li>
+                <li><a href="#memes">Memes</a></li>
+                <li><a href="#tokenomics">Tokenomics</a></li>
                 <li><a href="#socials">Socials</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="main-title">Backstab</h1>
+            <img src="images/download2-ezgif.com-crop.gif" alt="Backstab Logo" class="centered-image">
+            <p class="tagline">Stay vigilant and trust your instincts; sometimes the biggest smiles hide the sharpest knives. Especially on chain.</p>
+            
+            <!-- Social Links -->
+            <div class="social-links" id="socials">
+                <a href="https://x.com/Backstabdotfun" class="social-link" target="_blank">
+                    <img src="images/twitter.png" alt="Twitter"> Twitter
+                </a>
+                <a href="https://t.me/backstabdotfun" class="social-link" target="_blank">
+                    <img src="images/telegram.png" alt="Telegram"> Telegram
+                </a>
+            </div>
+            
+            <p class="mini-title">Keep your circle small and your eyes wide.</p>
+            <div class="contract-address">CA WILL GO HERE ONCE LIVE ON PUMPFUN</div>
+        </div>
+    </section>
 
-    <div class="centered-section">
-        <h1 class="main-title">Backstab</h1>
-        <img src="images/download2-ezgif.com-crop.gif" alt="Centered Image" class="centered-image">
-        <p class="image-description">"Stay vigilant and trust your instincts; sometimes the biggest smiles hide the sharpest knives. Especially on chain"        </p>
+    <!-- Memes Section -->
+    <section id="memes" class="memes-section">
+        <h2 class="section-heading">Memes</h2>
+        <img src="images/download2-ezgif.com-crop.gif" alt="Featured Meme" class="featured-meme">
         
-        <!-- Social Media Links -->
-        <div class="social-links">
-            <a href="https://x.com/backstab_coin_" class="social-link" target="_blank">
-                <img src="images/twitter.png" alt="Twitter"> Twitter
-            </a>
-            <a href="https://t.me/+mj3eqS2T7L42ODM8" class="social-link" target="_blank">
-                <img src="images/telegram.png" alt="Telegram"> Telegram
-            </a>
+        <div class="meme-grid">
+            <img src="images/03aea37dd4080580dc051b306c785983.jpg" alt="Meme">
+            <img src="images/0a3dbed50b5931fc6193351eb325f396.jpg" alt="Meme">
+            <img src="images/1d0aace24ed248abe18cc23730284f3f.jpg" alt="Meme">
+            <img src="images/3178bfd7ccdc06a23dbed48c2da7659d (1).jpg" alt="Meme">
+            <img src="images/564bc83ccbec58542372c790c7c7efa2.jpg" alt="Meme">
+            <img src="images/90d90cbdee9bc472a9d35b41c7e183e3.jpg" alt="Meme">
+            <img src="images/91b57e69e2b70bd73a4a206291bb27a1.jpg" alt="Meme">
+            <img src="images/9b582a6de04f438a8705fc4857adae7a.jpg" alt="Meme">
+            <img src="images/9d7a9ccdae980c1d11de813eceb8dbd3.jpg" alt="Meme">
+            <img src="images/abeb6764b29eed1f2f63a365d32b324c.jpg" alt="Meme">
+            <img src="images/aea35749e6cc7ec91a2611de1768dc1c.jpg" alt="Meme">
+            <img src="images/d2425d459ec5c4df3bdc57538477c3ed (1).jpg" alt="Meme">
+            <img src="images/d362c073b1c4a9e106dc2950579da4f0.jpg" alt="Meme">
+            <img src="images/d5e3bdb1e588aa2fafa5bb51ccadd62c.jpg" alt="Meme">
+            <img src="images/df3365f31a2bdd5b29b8184e7aaf4569.jpg" alt="Meme">
+            <img src="images/e963f4a96c4b1f30182a40fd961b1e07.jpg" alt="Meme">
         </div>
-        <h3 class="mini-title">"Keep your circle small and your eyes wide."        </h3>
-        <h4 class="mini-title">"CA WILL GO HERE ONCE LIVE ON PUMPFUN"</h4>
-    </div>
+    </section>
 
-    <!-- Image Grid Section -->
-    <div id="images-section" class="grid-section">
-        <img src="images/download2-ezgif.com-crop.gif" alt="Top Image" class="top-image">
-        <div class="image-grid">
-            <img src="images/03aea37dd4080580dc051b306c785983.jpg" alt="Image 1">
-            <img src="images/0a3dbed50b5931fc6193351eb325f396.jpg" alt="Image 2">
-            <img src="images/1d0aace24ed248abe18cc23730284f3f.jpg" alt="Image 3">
-            <img src="images/3178bfd7ccdc06a23dbed48c2da7659d (1).jpg" alt="Image 4">
-            <img src="images/564bc83ccbec58542372c790c7c7efa2.jpg" alt="Image 5">
-            <img src="images/90d90cbdee9bc472a9d35b41c7e183e3.jpg" alt="Image 6">
-            <img src="images/91b57e69e2b70bd73a4a206291bb27a1.jpg" alt="Image 7">
-            <img src="images/9b582a6de04f438a8705fc4857adae7a.jpg" alt="Image 8">
-            <img src="images/9d7a9ccdae980c1d11de813eceb8dbd3.jpg" alt="Image 9">
-            <img src="images/abeb6764b29eed1f2f63a365d32b324c.jpg" alt="Image 10">
-            <img src="images/aea35749e6cc7ec91a2611de1768dc1c.jpg" alt="Image 11">
-            <img src="images/d2425d459ec5c4df3bdc57538477c3ed (1).jpg" alt="Image 12">
-            <img src="images/d362c073b1c4a9e106dc2950579da4f0.jpg" alt="Image 13">
-            <img src="images/d5e3bdb1e588aa2fafa5bb51ccadd62c.jpg" alt="Image 14">
-            <img src="images/df3365f31a2bdd5b29b8184e7aaf4569.jpg" alt="Image 15">
-            <img src="images/e963f4a96c4b1f30182a40fd961b1e07.jpg" alt="Image 16">
-        </div>
-    </div>
-
-    <!-- Rectangle Section -->
-    <div class="rectangle-section">
-        <h2 class="section-title">Backstabbing</h2>
-        <div class="rectangles">
-            <div class="rectangle">
-                <h3 class="rectangle-title">TOTAL SUPPLY</h3>
-                <p class="rectangle-subtitle">1,000,000,000 $ASTRONOMICS</p>
+    <!-- Tokenomics Section -->
+    <section id="tokenomics" class="tokenomics-section">
+        <h2 class="section-heading">Tokenomics</h2>
+        
+        <div class="tokenomics-container">
+            <div class="tokenomics-card">
+                <h3 class="tokenomics-title">Total Supply</h3>
+                <p class="tokenomics-value">1,000,000,000</p>
+                <p class="tokenomics-description">$BACKSTAB tokens in circulation</p>
             </div>
-            <div class="rectangle">
-                <h3 class="rectangle-title">DEV HOLDINGS</h3>
-                <p class="rectangle-subtitle">5%</p>
+            
+            <div class="tokenomics-card">
+                <h3 class="tokenomics-title">Dev Holdings</h3>
+                <p class="tokenomics-value">5%</p>
+                <p class="tokenomics-description">Reserved for development & future growth</p>
             </div>
-            <div class="rectangle">
-                <h3 class="rectangle-title">MARKETING BOOSTERS</h3>
-                <p class="rectangle-subtitle">2%</p>
+            
+            <div class="tokenomics-card">
+                <h3 class="tokenomics-title">Marketing</h3>
+                <p class="tokenomics-value">2%</p>
+                <p class="tokenomics-description">Allocated for marketing & promotion</p>
             </div>
         </div>
-    </div>
-
+    </section>
 
     <!-- Footer -->
-
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="#" class="footer-link">Contact</a>
+        </div>
+        <p class="copyright">© 2025 Backstab. All rights reserved.</p>
+    </footer>
+</body>
+</html>
